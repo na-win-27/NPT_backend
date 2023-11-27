@@ -40,7 +40,7 @@ app.use("/api/v2/task", todo);
 // config
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({
-    path: "config/.env",
+    path: ".env",
   });
 }
 
