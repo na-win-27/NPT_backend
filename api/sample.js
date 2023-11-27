@@ -45,9 +45,18 @@ router.post(
         oppurtunity.sampleRequest.push(sample._id);
         await oppurtunity.save();
         await customer.save();
+
+        const s=await SampleRequest.findById(sample._id)
+          .populate({ path: "addedBy" })
+          .populate({ path: "hangers.id" })
+          .populate({ path: "hangers.colour" })
+          .populate({
+            path: "customer",
+          })
+          .exec();
         res.status(201).json({
           success: true,
-          sample,
+          sample:s,
         });
       }
     } catch (error) {

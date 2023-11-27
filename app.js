@@ -4,15 +4,15 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const user = require("./controllers/user.js")
-const customer=require("./controllers/customer.js");
-const hanger=require("./controllers/hanger.js");
-const rawMaterial=require("./controllers/rawMaterial.js");
-const oppurtunity=require("./controllers/oppurtunity");
-const sample=require("./controllers/sample.js");
-const quote=require("./controllers/quote.js");
-const order=require("./controllers/order.js");
-const todo=require("./controllers/todo.js");
+const user = require("./api/user.js")
+const customer=require("./api/customer.js");
+const hanger=require("./api/hanger.js");
+const rawMaterial=require("./api/rawMaterial.js");
+const oppurtunity=require("./api/oppurtunity");
+const sample=require("./api/sample.js");
+const quote=require("./api/quote.js");
+const order=require("./api/order.js");
+const todo=require("./api/todo.js");
 
 const corsConfig = {
   origin: true,

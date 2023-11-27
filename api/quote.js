@@ -12,7 +12,10 @@ router.post(
   isAuthenticated,
   catchAsyncErrors(async (req, res, next) => {
     try {
+
+      
       const quoteData = req.body;
+      if(quoteData.oppurtunity){
       const oppurtunity = await Oppurtunity.findById(req.body.oppurtunity)
         
       oppurtunity.stage = "Quote";
@@ -34,6 +37,34 @@ router.post(
         success: true,
         quote:q,
       });
+    }
+    else{
+      const oppurtunity = await Oppurtunity.create({
+        customer: req.body.customer,
+        stage: "Sample",
+        description: req.body.description?req.body.description:"NPT QUOTE",
+        stage : "Quote"
+      })
+        
+      const quote = await Quote.create(quoteData)
+      const q=await Quote.findById(quote._id).populate({ path: "hangers.hanger" })
+      .populate({ path: "hangers.material" })
+      .populate({ path: "hangers.hook" })
+      .populate({ path: "hangers.clip" })
+      .populate({ path: "hangers.print" })
+      .populate({
+        path: "customer",
+      })
+      .exec();;
+      oppurtunity.quotes.push(quote._id);
+      await oppurtunity.save();
+      
+      res.status(201).json({
+        success: true,
+        quote:q,
+      });
+      
+    }
     } catch (error) {
       console.log(error);
       return next(new ErrorHandler(error, 400));
